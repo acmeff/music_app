@@ -1,0 +1,8 @@
+<h1>Add Track</h1>
+
+<%= render 'form',
+    action: :new,
+    action_url: tracks_url,
+    item: @track,
+    parent: 'album',
+    parent_collection: @albums  %>

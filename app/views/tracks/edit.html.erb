@@ -1,0 +1,8 @@
+<h1>Edit Track</h1>
+
+<%= render 'form',
+    action: :edit,
+    action_url: track_url(@track),
+    parent: 'album',
+    parent_collection: @albums,
+    item: @track %>

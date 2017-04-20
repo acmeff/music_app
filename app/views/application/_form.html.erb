@@ -1,0 +1,47 @@
+<% item_class = item.class.to_s.downcase %>
+
+<% flash[:errors].each do |error| %>
+  <p><%=error%></p>
+<% end %>
+
+<form action="<%= action_url %>" method="post">
+  <%= auth_token %>
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <label for="name">Name</label>
+  <input type="text"
+         name="<%= item_class%>[name]"
+         id='name'
+         value='<%= item.name %>'>
+  <br>
+
+  <% if item_class == 'album' || item_class == 'track'%>
+    <select name="<%= item_class %>[<%=parent%>_id]">
+      <% parent_collection.each do |parent_item| %>
+      <option value="<%=parent_item.id%>"
+        <%= 'selected' if parent_item.id == item.send(parent+"_id") %>>
+        <%=parent_item.name%>
+      </option>
+      <% end %>
+    </select>
+
+    <select name="<%= item_class %>[<%= item_class %>_type]">
+      <% (item_class.capitalize.constantize)::TYPES.each do |type| %>
+      <option value="<%=type%>"
+        <%= 'selected' if type == item.send(item_class+"_type") %>>
+        <%=type%>
+      </option>
+      <% end %>
+    </select>
+
+
+  <% end %>
+  <% if item_class == 'track' %>
+    <br>
+    <label for="lyrics">Lyrics</label>
+    <textarea name='track[lyrics]' id='lyrics'><%= item.lyrics %></textarea>
+  <% end %>
+
+  <input type="submit">
+</form>

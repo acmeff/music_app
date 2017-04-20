@@ -1,0 +1,23 @@
+<h1>Track Info</h1>
+
+<%= render 'track', track: @track %>
+
+<br>
+<%= button_to 'Edit Track', edit_track_url, method: :get %>
+<br>
+<%= button_to 'Delete Track', track_url(@track), method: :delete %>
+
+<ul>
+  <%= render @notes %>
+</ul>
+
+<% flash[:errors].each do |error| %>
+  <p><%=error%></p>
+<% end if flash[:errors]%>
+
+
+<form action="<%=track_notes_url(@track)%>" method="post">
+  <%= auth_token %>
+  <textarea name="note[body]" rows="8" cols="80"></textarea>
+  <input type="submit">
+</form>

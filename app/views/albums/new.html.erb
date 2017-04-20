@@ -1,0 +1,8 @@
+<h1>Add Album</h1>
+
+<%= render 'form',
+    action: :new,
+    action_url: albums_url,
+    item: @album,
+    parent: 'band',
+    parent_collection: @bands  %>

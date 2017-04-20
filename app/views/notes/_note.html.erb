@@ -1,0 +1,9 @@
+<li>
+  <p>Author: <%= note.user.email %></p>
+
+  <p>Comment: <%= note.body %></p>
+
+  <% if note.user == current_user %>
+    <%= button_to 'Delete Comment', note_url(note), method: :delete %>
+  <% end %>
+</li>
