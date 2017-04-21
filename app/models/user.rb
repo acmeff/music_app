@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :password, presence: { limit: 6, allow_nil: true }
 
   before_validation :ensure_session_token
+  before_validation :ensure_activation_token
 
   has_many :notes
 
@@ -21,6 +22,10 @@ class User < ApplicationRecord
     user.is_password?(password) ? user : nil
   end
 
+  def ensure_activation_token
+    self.activation_token ||= self.class.generate_session_token
+  end
+  
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
   end
